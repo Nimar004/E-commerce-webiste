@@ -1,0 +1,36 @@
+{
+    "redhat.telemetry.enabled": false,
+    "remote.SSH.defaultExtensions": [
+        "gitpod.gitpod-remote-ssh"
+    ],
+    "remote.SSH.remotePlatform": {
+        "*.gitpod.io": "linux"
+    },
+    "chatgpt.lang": "en",
+    "liveServer.settings.wait": 10,
+    "java.completion.favoriteStaticMembers": [
+    
+        
+        "org.junit.Assert.*",
+        "org.junit.Assume.*",
+        "org.junit.jupiter.api.Assertions.*",
+        "org.junit.jupiter.api.Assumptions.*",
+        "org.junit.jupiter.api.DynamicContainer.*",
+        "org.junit.jupiter.api.DynamicTest.*",
+        "org.mockito.Mockito.*",
+        "org.mockito.ArgumentMatchers.*",
+        "org.mockito.Answers.*"
+    ],
+    "[java]": {
+        "editor.defaultFormatter": "Oracle.oracle-java"
+    },
+    "window.zoomLevel": 0.5,
+    "files.autoSave": "afterDelay",
+    "diffEditor.hideUnchangedRegions.enabled": true,
+    "git.suggestSmartCommit": false,
+    "explorer.confirmDragAndDrop": false,
+    "python.createEnvironment.trigger": "off",
+    "jdk.runConfig.vmOptions": "--enable-preview --source 22",
+    "editor.minimap.enabled": false,
+    "workbench.editor.showTabs": "none"
+}

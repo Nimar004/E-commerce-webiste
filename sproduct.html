@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link relindex.html="stylesheet" href="https://pro.fontawesome.com/releases/v5.0.0/css/all.css /" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <section id="header">
+        <a href="#"><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQwIiBoZWlnaHQ9IjQwIiB2aWV3Qm94PSIwIDAgMTQwIDQwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDx0ZXh0IHg9IjAiIHk9IjI4IiBmb250LWZhbWlseT0iQnJ1c2ggU2NyaXB0IE1ULCBjdXJzaXZlIiBmb250LXNpemU9IjI4IiBmaWxsPSJibGFjayI+CiAgICBOaW1hYXJ6CiAgPC90ZXh0Pgo8L3N2Zz4=" alt="Nimaarz Logo"  class="logo" alt=""></a>
+        <div>
+            <ul id="navbar">
+                <li><a  href="index.html">Home</a></li>
+                    <li><a class="active" href="shop.html">Shop</a></li>
+                       
+                            <li><a href="about.html">about</a></li>
+                                <li><a href="contact.html">contact</a></li>
+                                    <li><a id='lg-bag' href="cart.html" style="font-size: 24px;">👜</a></li>
+                                    <a href="#" id="close">╳</a>
+            </ul>
+        </div>
+        <div id="mobile">
+            👜
+            <div id="bar">ᖶᖷ</div>
+        </div>
+    </section>
+    <section id="prodetails" class="section-p1">
+        <div class="single-pro-image">
+            <img src="images/product-img/f1.png" width="100%" id="MainImg" alt="">
+            <div class="small-img-group">
+                <div class="small-img-col">
+                    <img src="images/product-img/f1.png" width="100%" class="small-img" alt="">
+                </div>
+                <div class="small-img-col">
+                    <img src="images/product-img/f2.png" width="100%" class="small-img" alt="">
+                </div>
+                <div class="small-img-col">
+                    <img src="images/product-img/f3.png" width="100%" class="small-img" alt="">
+                </div>
+                <div class="small-img-col">
+                    <img src="images/product-img/f4.png" width="100%" class="small-img" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="single-pro-details">
+            <h6>Home/T-shirt</h6>
+            <h4>Mens fashion Tshirt</h4>
+            <h2>₹6999</h2>
+            <select>
+                <option>select size</option>
+                <option >Small</option>
+                <option >Medium</option>
+                <option >Large</option>
+                <option >XL</option>
+                <option >XXL</option>
+            </select>
+            <input type="number" value="1">
+            <button class="normal">Add to Cart</button>
+            <h4>Product Details</h4>
+            <span>Amazing Quaity Tshirts for daily wear ad fresh feel.</span>
+        </div>
+    </section>
+    
+    <section id="newsletter" class="section-p1">
+        <div class="newstack">
+            <h4 > Sign up for NewsLetter</h4>
+            <p >Get Email updates about our latest shop and <span>special offers</span></special></p>
+
+        </div>
+        <div class="form">
+            <input type="text" placeholder="Your Email id">
+            <button class="normal">Sign Up</button>
+        </div>
+    </section>
+    <section id="product1" class="section-p1">
+        <h2>Featured Products</h2>
+        <p>Summer Collection New Mordern Design</p>
+        <div class="pro-container">
+            <div class="pro">
+                <img src="images/product-img/f1.png"></img>
+                <div class="description">
+                    <span>adidas</span>
+                    <h5>Cartoon Astronout T-Shirts</h5>
+                    <div class="star">
+                        ⭐️⭐️⭐️⭐️⭐️
+                    </div>
+                    <h4>₹6999</h4>
+                </div>
+                <a href="#" class="cart">🛒</a>
+            </div>
+            <div class="pro">
+                <img src="images/product-img/f2.png"></img>
+                <div class="description">
+                    <span>adidas</span>
+                    <h5>Havai Special Edition</h5>
+                    <div class="star">
+                        ⭐️⭐️⭐️⭐️⭐️
+                    </div>
+                    <h4>₹6999</h4>
+                </div>
+                <a href="#" class="cart">🛒</a>
+            </div>
+       
+            <div class="pro">
+                <img src="images/product-img/f3.png"></img>
+                <div class="description">
+                    <span>adidas</span>
+                    <h5>Flowered Paradise</h5>
+                    <div class="star">
+                        ⭐️⭐️⭐️⭐️⭐️
+                    </div>
+                    <h4>₹6999</h4>
+                </div>
+                <a href="#" class="cart">🛒</a>
+            </div>
+       
+        
+            <div class="pro">
+                <img src="images/product-img/f4.png"></img>
+                <div class="description">
+                    <span>adidas</span>
+                    <h5>Blossom Touch</h5>
+                    <div class="star">
+                        ⭐️⭐️⭐️⭐️⭐️
+                    </div>
+                    <h4>₹6999</h4>
+                </div>
+                <a href="#" class="cart">🛒</a>
+            </div>
+        </div>
+    </section>
+</body>
+<script>
+    
+var MainImg=document.getElementById("MainImg");
+var smallImg=document.getElementsByClassName("small-img");
+    smallImg[0].onclick=function(){
+        MainImg.src=smallImg[0].src;
+    }
+    smallImg[1].onclick=function(){
+        MainImg.src=smallImg[1].src;
+    }
+    smallImg[2].onclick=function(){
+        MainImg.src=smallImg[2].src;
+    }
+    smallImg[3].onclick=function(){
+        MainImg.src=smallImg[3].src;
+    }
+</script>
+<script src="script.js"></script>
+</html>
