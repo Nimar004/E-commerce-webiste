@@ -37,7 +37,7 @@
     <section id="product1" class="section-p1">
         
         <div class="pro-container">
-            <div class="pro" onclick="window.location.href='sproduct.html'">
+            <div class="pro" onclick="window.location.href='sproduct.html?id=f1'">
                 <img src="images/product-img/f1.png"></img>
                 <div class="description">
                     <span>adidas</span>
@@ -47,9 +47,9 @@
                     </div>
                     <h4>₹6999</h4>
                 </div>
-                <a href="#" class="cart">🛒</a>
+                <a href="#" class="cart" data-product-id="f1" data-product-name="Cartoon Astronout T-Shirts" data-product-price="6999">🛒</a>
             </div>
-            <div class="pro">
+            <div class="pro" onclick="window.location.href='sproduct.html?id=f2'">
                 <img src="images/product-img/f2.png"></img>
                 <div class="description">
                     <span>adidas</span>
@@ -59,10 +59,10 @@
                     </div>
                     <h4>₹6999</h4>
                 </div>
-                <a href="#" class="cart">🛒</a>
+                <a href="#" class="cart" data-product-id="f2" data-product-name="Havai Special Edition" data-product-price="6999">🛒</a>
             </div>
        
-            <div class="pro">
+            <div class="pro" onclick="window.location.href='sproduct.html?id=f3'">
                 <img src="images/product-img/f3.png"></img>
                 <div class="description">
                     <span>adidas</span>
@@ -72,11 +72,11 @@
                     </div>
                     <h4>₹6999</h4>
                 </div>
-                <a href="#" class="cart">🛒</a>
+                <a href="#" class="cart" data-product-id="f3" data-product-name="Flowered Paradise" data-product-price="6999">🛒</a>
             </div>
        
         
-            <div class="pro">
+            <div class="pro" onclick="window.location.href='sproduct.html?id=f4'">
                 <img src="images/product-img/f4.png"></img>
                 <div class="description">
                     <span>adidas</span>
@@ -86,7 +86,7 @@
                     </div>
                     <h4>₹6999</h4>
                 </div>
-                <a href="#" class="cart">🛒</a>
+                <a href="#" class="cart" data-product-id="f4" data-product-name="Blossom Touch" data-product-price="6999">🛒</a>
             </div>
         </div>
     </section>
@@ -103,8 +103,8 @@
 
         </div>
         <div class="form">
-            <input type="text" placeholder="Your Email id">
-            <button class="normal">Sign Up</button>
+            <input type="email" id="newsletter-email" placeholder="Your Email id">
+            <button class="normal" id="newsletter-signup-btn">Sign Up</button>
         </div>
     </section>
 </body>

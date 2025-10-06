@@ -56,10 +56,10 @@
                 <option >XL</option>
                 <option >XXL</option>
             </select>
-            <input type="number" value="1">
-            <button class="normal">Add to Cart</button>
+            <input type="number" value="1" id="product-quantity" min="1">
+            <button class="normal" id="add-to-cart-btn">Add to Cart</button>
             <h4>Product Details</h4>
-            <span>Amazing Quaity Tshirts for daily wear ad fresh feel.</span>
+            <span id="product-description">Amazing Quaity Tshirts for daily wear ad fresh feel.</span>
         </div>
     </section>
     
@@ -70,15 +70,15 @@
 
         </div>
         <div class="form">
-            <input type="text" placeholder="Your Email id">
-            <button class="normal">Sign Up</button>
+            <input type="email" id="newsletter-email" placeholder="Your Email id">
+            <button class="normal" id="newsletter-signup-btn">Sign Up</button>
         </div>
     </section>
     <section id="product1" class="section-p1">
         <h2>Featured Products</h2>
         <p>Summer Collection New Mordern Design</p>
         <div class="pro-container">
-            <div class="pro">
+            <div class="pro" onclick="window.location.href='sproduct.html?id=f1'">
                 <img src="images/product-img/f1.png"></img>
                 <div class="description">
                     <span>adidas</span>
@@ -88,9 +88,9 @@
                     </div>
                     <h4>₹6999</h4>
                 </div>
-                <a href="#" class="cart">🛒</a>
+                <a href="#" class="cart" data-product-id="f1" data-product-name="Cartoon Astronout T-Shirts" data-product-price="6999">🛒</a>
             </div>
-            <div class="pro">
+            <div class="pro" onclick="window.location.href='sproduct.html?id=f2'">
                 <img src="images/product-img/f2.png"></img>
                 <div class="description">
                     <span>adidas</span>
@@ -100,10 +100,10 @@
                     </div>
                     <h4>₹6999</h4>
                 </div>
-                <a href="#" class="cart">🛒</a>
+                <a href="#" class="cart" data-product-id="f2" data-product-name="Havai Special Edition" data-product-price="6999">🛒</a>
             </div>
        
-            <div class="pro">
+            <div class="pro" onclick="window.location.href='sproduct.html?id=f3'">
                 <img src="images/product-img/f3.png"></img>
                 <div class="description">
                     <span>adidas</span>
@@ -113,11 +113,11 @@
                     </div>
                     <h4>₹6999</h4>
                 </div>
-                <a href="#" class="cart">🛒</a>
+                <a href="#" class="cart" data-product-id="f3" data-product-name="Flowered Paradise" data-product-price="6999">🛒</a>
             </div>
        
         
-            <div class="pro">
+            <div class="pro" onclick="window.location.href='sproduct.html?id=f4'">
                 <img src="images/product-img/f4.png"></img>
                 <div class="description">
                     <span>adidas</span>
@@ -127,7 +127,7 @@
                     </div>
                     <h4>₹6999</h4>
                 </div>
-                <a href="#" class="cart">🛒</a>
+                <a href="#" class="cart" data-product-id="f4" data-product-name="Blossom Touch" data-product-price="6999">🛒</a>
             </div>
         </div>
     </section>
@@ -148,6 +148,105 @@ var smallImg=document.getElementsByClassName("small-img");
     smallImg[3].onclick=function(){
         MainImg.src=smallImg[3].src;
     }
+
+    // Product data (simulate a database)
+    const products = [
+        { id: 'f1', name: 'Cartoon Astronout T-Shirts', brand: 'adidas', price: 6999, description: 'Amazing Quality T-shirts for daily wear and fresh feel.', img: 'images/product-img/f1.png' },
+        { id: 'f2', name: 'Havai Special Edition', brand: 'adidas', price: 6999, description: 'A special edition Havai shirt for a unique style.', img: 'images/product-img/f2.png' },
+        { id: 'f3', name: 'Flowered Paradise', brand: 'adidas', price: 6999, description: 'Experience paradise with this flowered design.', img: 'images/product-img/f3.png' },
+        { id: 'f4', name: 'Blossom Touch', brand: 'adidas', price: 6999, description: 'Feel the gentle touch of blossoms with this elegant shirt.', img: 'images/product-img/f4.png' }
+    ];
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('id');
+        const mainProduct = products.find(p => p.id === productId);
+
+        if (mainProduct) {
+            document.getElementById('MainImg').src = mainProduct.img;
+            document.querySelector('.single-pro-details h4:nth-of-type(2)').innerText = mainProduct.name; // Product Name
+            document.querySelector('.single-pro-details h2').innerText = `₹${mainProduct.price}`; // Product Price
+            document.getElementById('product-description').innerText = mainProduct.description; // Product Description
+
+            // Update small images if needed (currently static, but could be dynamic)
+            const smallImgs = document.querySelectorAll('.small-img');
+            smallImgs.forEach((img, index) => {
+                // For now, keeping static, but could map to other product images
+                // img.src = mainProduct.otherImages[index] || mainProduct.img;
+            });
+
+            const addToCartBtn = document.getElementById('add-to-cart-btn');
+            const productQuantityInput = document.getElementById('product-quantity');
+            const productSizeSelect = document.querySelector('.single-pro-details select');
+
+            addToCartBtn.addEventListener('click', (event) => {
+                event.preventDefault();
+                const quantity = parseInt(productQuantityInput.value);
+                const size = productSizeSelect.value;
+
+                if (isNaN(quantity) || quantity <= 0) {
+                    alert('Please enter a valid quantity.');
+                    return;
+                }
+                if (size === 'select size') {
+                    alert('Please select a size.');
+                    return;
+                }
+
+                const item = {
+                    id: mainProduct.id,
+                    name: mainProduct.name,
+                    price: mainProduct.price,
+                    quantity: quantity,
+                    size: size // Add size to cart item
+                };
+                addItemToCart(item);
+                alert(`${mainProduct.name} (Size: ${size}, Qty: ${quantity}) added to cart!`);
+            });
+        } else {
+            console.error('Product not found.');
+            // Optionally redirect to shop page or show an error
+        }
+
+        // Newsletter signup functionality (copied from script.js)
+        const newsletterSignupBtn = document.getElementById('newsletter-signup-btn');
+        if (newsletterSignupBtn) {
+            newsletterSignupBtn.addEventListener('click', () => {
+                const emailInput = document.getElementById('newsletter-email');
+                if (emailInput && emailInput.value) {
+                    alert(`Thank you for signing up for our newsletter with ${emailInput.value}!`);
+                    emailInput.value = ''; // Clear the input
+                } else {
+                    alert('Please enter a valid email address.');
+                }
+            });
+        }
+
+        // Add to cart for related products (copied from script.js)
+        const cartButtons = document.querySelectorAll('.pro .cart');
+        cartButtons.forEach(button => {
+            button.addEventListener('click', async (event) => {
+                event.preventDefault();
+
+                const productId = button.dataset.productId;
+                const productName = button.dataset.productName;
+                const productPrice = parseFloat(button.dataset.productPrice);
+
+                if (productId && productName && productPrice) {
+                    const item = {
+                        id: productId,
+                        name: productName,
+                        price: productPrice,
+                        quantity: 1
+                    };
+                    addItemToCart(item);
+                    alert(`${productName} added to cart!`);
+                } else {
+                    console.error('Missing product data attributes for cart item.');
+                }
+            });
+        });
+    });
 </script>
 <script src="script.js"></script>
 </html>

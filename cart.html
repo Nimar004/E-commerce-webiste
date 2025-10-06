@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.0.0/css/all.css /" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <section id="header">
+        <a href="#"><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQwIiBoZWlnaHQ9IjQwIiB2aWV3Qm94PSIwIDAgMTQwIDQwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDx0ZXh0IHg9IjAiIHk9IjI4IiBmb250LWZhbWlseT0iQnJ1c2ggU2NyaXB0IE1ULCBjdXJzaXZlIiBmb250LXNpemU9IjI4IiBmaWxsPSJibGFjayI+CiAgICBOaW1hYXJ6CiAgPC90ZXh0Pgo8L3N2Zz4=" alt="Nimaarz Logo"  class="logo" alt=""></a>
+        <div>
+            <ul id="navbar">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="about.html">about</a></li>
+                <li><a href="contact.html">contact</a></li>
+                <li><a class="active" id='lg-bag' href="cart.html" style="font-size: 24px;">👜</a></li>
+                <a href="#" id="close">╳</a>
+            </ul>
+        </div>
+        <div id="mobile">
+            👜
+            <div id="bar">ᖶᖷ</div>
+        </div>
+    </section>
+
+    <section id="page-header" class="cart-header">
+        <h2>#cart</h2>
+        <p>Add your coupon code & SAVE upto 70%!</p>
+    </section>
+
+    <section id="cart" class="section-p1">
+        <table width="100%">
+            <thead>
+                <tr>
+                    <td>Remove</td>
+                    <td>Image</td>
+                    <td>Product</td>
+                    <td>Price</td>
+                    <td>Quantity</td>
+                    <td>Subtotal</td>
+                </tr>
+            </thead>
+            <tbody id="cart-items-container">
+                <!-- Cart items will be rendered here by JavaScript -->
+            </tbody>
+        </table>
+    </section>
+
+    <section id="cart-add" class="section-p1">
+        <div id="coupon">
+            <h3>Apply Coupon</h3>
+            <div>
+                <input type="text" id="coupon-code" placeholder="Enter Your Coupon">
+                <button class="normal" id="apply-coupon-btn">Apply</button>
+            </div>
+        </div>
+
+        <div id="subtotal">
+            <h3>Cart Totals</h3>
+            <table>
+                <tr>
+                    <td>Cart Subtotal</td>
+                    <td id="cart-subtotal">₹0.00</td>
+                </tr>
+                <tr>
+                    <td>Shipping</td>
+                    <td>Free</td>
+                </tr>
+                <tr>
+                    <td><strong>Total</strong></td>
+                    <td><strong id="cart-total">₹0.00</strong></td>
+                </tr>
+            </table>
+            <button class="normal" id="proceed-to-checkout-btn" onclick="window.location.href='checkout.html'">Proceed to checkout</button>
+        </div>
+    </section>
+
+    <section id="newsletter" class="section-p1">
+        <div class="newstack">
+            <h4> Sign up for NewsLetter</h4>
+            <p>Get Email updates about our latest shop and <span>special offers</span></p>
+        </div>
+        <div class="form">
+            <input type="text" placeholder="Your Email id">
+            <button class="normal">Sign Up</button>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCart();
+        });
+
+        function renderCart() {
+            const cartItemsContainer = document.getElementById('cart-items-container');
+            cartItemsContainer.innerHTML = ''; // Clear existing items
+
+            let currentCart = getCart();
+            let subtotal = 0;
+
+            if (currentCart.length === 0) {
+                cartItemsContainer.innerHTML = '<tr><td colspan="6">Your cart is empty.</td></tr>';
+            } else {
+                currentCart.forEach(item => {
+                    const itemTotal = item.price * item.quantity;
+                    subtotal += itemTotal;
+
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td><a href="#" class="remove-item" data-product-id="${item.id}">❌</a></td>
+                        <td><img src="images/product-img/${item.id}.png" alt=""></td>
+                        <td>${item.name}</td>
+                        <td>₹${item.price.toFixed(2)}</td>
+                        <td><input type="number" value="${item.quantity}" min="1" class="item-quantity" data-product-id="${item.id}"></td>
+                        <td>₹${itemTotal.toFixed(2)}</td>
+                    `;
+                    cartItemsContainer.appendChild(row);
+                });
+            }
+
+            document.getElementById('cart-subtotal').innerText = `₹${subtotal.toFixed(2)}`;
+            document.getElementById('cart-total').innerText = `₹${subtotal.toFixed(2)}`; // Assuming no shipping cost for now
+
+            // Add event listeners for quantity changes and item removal
+            document.querySelectorAll('.item-quantity').forEach(input => {
+                input.addEventListener('change', (event) => {
+                    const productId = event.target.dataset.productId;
+                    const newQuantity = parseInt(event.target.value);
+                    if (!isNaN(newQuantity) && newQuantity >= 0) {
+                        updateCartItemQuantity(productId, newQuantity);
+                        renderCart(); // Re-render cart to update totals
+                    }
+                });
+            });
+
+            document.querySelectorAll('.remove-item').forEach(link => {
+                link.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const productId = event.target.dataset.productId;
+                    removeItemFromCart(productId);
+                    renderCart(); // Re-render cart to update totals
+                });
+            });
+
+            const applyCouponBtn = document.getElementById('apply-coupon-btn');
+            if (applyCouponBtn) {
+                applyCouponBtn.addEventListener('click', () => {
+                    const couponCodeInput = document.getElementById('coupon-code');
+                    if (couponCodeInput && couponCodeInput.value) {
+                        alert(`Coupon "${couponCodeInput.value}" applied! (This is a placeholder. Actual coupon logic would be more complex.)`);
+                        couponCodeInput.value = '';
+                    } else {
+                        alert('Please enter a coupon code.');
+                    }
+                });
+            }
+
+            const proceedToCheckoutBtn = document.getElementById('proceed-to-checkout-btn');
+            if (proceedToCheckoutBtn) {
+                proceedToCheckoutBtn.addEventListener('click', () => {
+                    alert('Proceeding to checkout! (This is a placeholder. Actual checkout logic would be more complex.)');
+                    // Here you would typically clear the cart and navigate to a confirmation page
+                    // cart = [];
+                    // saveCart();
+                    // renderCart();
+                });
+            }
+        }
+    </script>
+</body>
+</html>
